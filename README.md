@@ -60,7 +60,7 @@ gpg: failed to create temporary file '/usr/share/keyrings/.#lk0x000055a37160cde0
 gpg: keyblock resource '/usr/share/keyrings/hashicorp-archive-keyring.gpg': Permission denied
 ```
 
-![Permission Error](assets/Permission error when installing the terraform cli.png)
+![Permission Error](https://github.com/marius-salazar/terraform-beginner-bootcamp-2023/blob/main/assets/Permission%20error%20when%20installing%20the%20terraform%20cli.png)
 
 
 The solution to this is to add ``sudo`` before the command:
@@ -78,7 +78,7 @@ gpg: directory '/root/.gnupg' created
 gpg: /root/.gnupg/trustdb.gpg: trustdb created
 ```
 
-![Permission Error workaround](assets/Permission error workaround.png)
+![Permission Error workaround](https://github.com/marius-salazar/terraform-beginner-bootcamp-2023/blob/main/assets/Permission%20error%20workaround.png)
 
 The final script is located here: [./bin/install_terraform_cli](./bin/install_terraform_cli) which looked like this:
 
