@@ -246,7 +246,7 @@ We are going to install AWS CLI using bash script. First I created a new file in
 
 ### Configuring AWS Environment Variables and Checking for AWS Credentials
 
-In order to grant access to AWS CLI for our AWS Account we need to use an access keys. We can do this through AWS Environment Variables.[<sup>[13]</sup>](#references)
+In order to grant access to AWS CLI for our AWS Account we need to use an access keys that is generated from IAM user. We can do this through AWS Environment Variables.[<sup>[13]</sup>](#references)
 
 To check if our AWS credentials is configured correctly we can run the command [<sup>[14]</sup>](#references):
 
