@@ -186,7 +186,7 @@ vscode:
 
 ## Working with Environment Variables (env vars)
 
-### Setting up env vars
+### Setting up Environment Variables
 
 Environment variables are predetermined values that are typically used to provide the ability to configure a value in your code from outside of your application.[<sup>[7]</sup>](#references)
 
@@ -203,7 +203,7 @@ For example:
 $ export hello='World'
 ```
 
-### Unsetting env vars
+### Unsetting Environment Variables
 
 If you want to unset the created env vars you use the `unset` command in the terminal. [<sup>[10]</sup>](#references)
 
@@ -213,7 +213,7 @@ For example:
 $ unset hello
 ```
 
-### Printing Env Vars
+### Printing Environment Variables
 
 We can print env vars by using the `echo` command in the terminal. e.g. `echo $hello`
 
@@ -225,9 +225,9 @@ Env Vars set in one terminal is not carried over to another terminal or a newly 
 In order for it to be globally available in all bash terminals and future bash terminals you need to set env vars in your bash profile.[<sup>[10]</sup>](#references)
 
 
-### Persisting Env Vars in Gitpod
+### Making Environment Variable Persist in Gitpod
 
-We can persist env vars in gitpod by storing them in Gitpod Secrets Storage.[<sup>[11]</sup>](#references)
+We can make env vars persist in gitpod by storing them in Gitpod Secrets Storage.[<sup>[11]</sup>](#references)
 
 ```sh
 $ gp env hello='World'
@@ -235,6 +235,47 @@ $ gp env hello='World'
 ```
 
 All future workspaces that will be launch will set the env vars for all bash terminals
+
+
+## AWS CLI Installation
+
+### Installing AWS CLI using the Bash Script
+
+We are going to install AWS CLI using bash script. First I created a new file in the bin directory named [install_aws_cli](install_aws_cli). We will put our bash script in this file which consist of the instructions on how to install the AWS CLI on Linux x86 specifically.[<sup>[12]</sup>](#references)
+
+
+### Configuring AWS Environment Variables and Checking for AWS Credentials
+
+In order to grant access to AWS CLI for our AWS Account we need to use an access keys. We can do this through AWS Environment Variables.[<sup>[13]</sup>](#references)
+
+To check if our AWS credentials is configured correctly we can run the command [<sup>[14]</sup>](#references):
+
+```sh
+aws sts get-caller-identity
+```
+
+The result should look similar to this format:
+
+```json
+{
+    "UserId": "AKIAIOSFODNN7EXAMPLE",
+    "Account": "122333444555",
+    "Arn": "arn:aws:iam::122333444555:user/marsala-tfboot"
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## References
 
@@ -259,3 +300,9 @@ All future workspaces that will be launch will set the env vars for all bash ter
 -[Unsetting Env Vars](https://www.tecmint.com/set-unset-environment-variables-in-linux/) <sup>[10]</sup>
 
 -[Persisting Env Vars using Gitpod Secret Storage](https://www.gitpod.io/docs/configure/projects/environment-variables) <sup>[11]</sup>
+
+-[Installing AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) <sup>[12]</sup>
+
+-[AWS Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) <sup>[13]</sup>
+
+-[AWS get-caller-identity](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html) <sup>[14]</sup>
