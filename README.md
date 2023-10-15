@@ -192,7 +192,7 @@ Environment variables are predetermined values that are typically used to provid
 
 We can list out all env vars by using the `env` command.[<sup>[8]</sup>](#references)
 
-If you want to filter out specific env vars you can pipe (`|`) the `env` into a `grep` command.[<sup>[8]</sup>](#references) e.g. `env | grep hello`
+If you want to filter out specific env vars you can pipe `|` the `env` into a `grep` command.[<sup>[8]</sup>](#references) e.g. `env | grep hello`
 
 
 In order to set env vars you can use the command `export` in the terminal. [<sup>[9]</sup>](#references)
@@ -227,7 +227,7 @@ In order for it to be globally available in all bash terminals and future bash t
 
 ### Persisting Env Vars in Gitpod
 
-We can persist env vars in gitpod by storing them in Gitpod Secrets Storage.[<sup[11]</sup>](#references)
+We can persist env vars in gitpod by storing them in Gitpod Secrets Storage.[<sup>[11]</sup>](#references)
 
 ```sh
 $ gp env hello='World'
