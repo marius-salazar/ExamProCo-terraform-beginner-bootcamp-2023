@@ -184,18 +184,78 @@ vscode:
     - hashicorp.terraform
 ```
 
+## Working with Environment Variables (env vars)
 
+### Setting up env vars
+
+Environment variables are predetermined values that are typically used to provide the ability to configure a value in your code from outside of your application.[<sup>[7]</sup>](#references)
+
+We can list out all env vars by using the `env` command.[<sup>[8]</sup>](#references)
+
+If you want to filter out specific env vars you can pipe (`|`) the `env` into a `grep` command.[<sup>[8]</sup>](#references) e.g. `env | grep hello`
+
+
+In order to set env vars you can use the command `export` in the terminal. [<sup>[9]</sup>](#references)
+
+For example:
+
+```sh
+$ export hello='World'
+```
+
+### Unsetting env vars
+
+If you want to unset the created env vars you use the `unset` command in the terminal. [<sup>[10]</sup>](#references)
+
+For example:
+
+```sh
+$ unset hello
+```
+
+### Printing Env Vars
+
+We can print env vars by using the `echo` command in the terminal. e.g. `echo $hello`
+
+
+### Environment Variables Scope
+
+Env Vars set in one terminal is not carried over to another terminal or a newly opened terminal.
+
+In order for it to be globally available in all bash terminals and future bash terminals you need to set env vars in your bash profile.[<sup>[10]</sup>](#references)
+
+
+### Persisting Env Vars in Gitpod
+
+We can persist env vars in gitpod by storing them in Gitpod Secrets Storage.[<sup[11]</sup>](#references)
+
+```sh
+$ gp env hello='World'
+
+```
+
+All future workspaces that will be launch will set the env vars for all bash terminals
 
 ## References
 
--[Semantic Versioning](https://semver.org/)<sup>[1]</sup>
+-[Semantic Versioning](https://semver.org/) <sup>[1]</sup>
 
--[Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)<sup>[2]</sup>
+-[Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) <sup>[2]</sup>
 
--[Checking for Linux Flavor](https://www.cyberciti.biz/faq/how-to-check-os-version-in-linux-command-line/)<sup>[3]</sup>
+-[Checking for Linux Flavor](https://www.cyberciti.biz/faq/how-to-check-os-version-in-linux-command-line/) <sup>[3]</sup>
 
--[Making Linux Script Portable](https://www.cyberciti.biz/tips/finding-bash-perl-python-portably-using-env.html)<sup>[4]</sup>
+-[Making Linux Script Portable](https://www.cyberciti.biz/tips/finding-bash-perl-python-portably-using-env.html) <sup>[4]</sup>
 
--[Changing Permissions](https://www.pluralsight.com/blog/it-ops/linux-file-permissions)<sup>[5]</sup>
+-[Changing Permissions](https://www.pluralsight.com/blog/it-ops/linux-file-permissions) <sup>[5]</sup>
 
--[Gitpod Workspace Lifecycle](https://www.gitpod.io/docs/configure/workspaces/tasks)<sup>[6]</sup>
+-[Gitpod Workspace Lifecycle](https://www.gitpod.io/docs/configure/workspaces/tasks) <sup>[6]</sup>
+
+-[Environment Variables](https://www.freecodecamp.org/news/what-are-environment-variables-and-how-can-i-use-them-with-gatsby-and-netlify/) <sup>[7]</sup>
+
+-[Listing Env Vars](https://www.cyberciti.biz/faq/linux-list-all-environment-variables-env-command/) <sup>[8]</sup>
+
+-[Setting up Env Vars](https://www.twilio.com/blog/how-to-set-environment-variables-html) <sup>[9]</sup>
+
+-[Unsetting Env Vars](https://www.tecmint.com/set-unset-environment-variables-in-linux/) <sup>[10]</sup>
+
+-[Persisting Env Vars using Gitpod Secret Storage](https://www.gitpod.io/docs/configure/projects/environment-variables) <sup>[11]</sup>
