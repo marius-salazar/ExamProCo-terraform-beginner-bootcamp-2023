@@ -264,14 +264,201 @@ The result should look similar to this format:
 }
 ```
 
+## Terraform Basics
+
+**Terraform** is an Infrastructure as a Code (Iac) software tool that is used to automate infrastructure provisioning and resource management in the cloud or data center. Its configuration uses a _declarative language_ which means that you define the end state that you want to achieve instead of the steps on how to get it done. [<sup>[15]</sup>](#references) 
+
+### Terraform Registry
+
+If you want to browse for Terraform resources and modules you can find it at [registry.terraform.io](https://registry.terraform.io/).
+
+-**Providers** is an interface to APIs that will allow to create resources in terraform.
+
+This is an example of a _provider_ code in terraform: [<sup>[16]<sup>](#references)
+
+```json
+
+terraform {
+  required_providers {
+    random = {
+      source = "hashicorp/random"
+      version = "3.5.1"
+    }
+  }
+}
+
+provider "random" {
+  # Configuration options
+}
+
+```
+
+
+-**Modules** are Terraform configuration _templates_ to make things easier, modular and portable.
+
+This is an example of a _module_ code block in terraform: [<sup>[17]</sup>](#references)
+
+```json
+
+module "s3-bucket_example_complete" {
+  source  = "terraform-aws-modules/s3-bucket/aws//examples/complete"
+  version = "3.15.1"
+}
+```
+
+### Terraform Console
+
+If you want to browse the list of Terraform commands you can run `terraform` in the console.
+
+
+### Terraform Init
+
+In every new project in Terraform we should run the `terraform init` command in order to prepare our working directory for other commands. It will download the binaries of the terraform providers that we will use in the project.
+
+This is how the it looked like after running `terraform init` in the console:
+
+```sh
+
+$ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding hashicorp/random versions matching "3.5.1"...
+- Installing hashicorp/random v3.5.1...
+- Installed hashicorp/random v3.5.1 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+```
+
+
+### Terraform Plan
+
+After initializing terraform we can now run `terraform apply` to audit the resources to be provisioned and if you have done some changes in the previous infrastructure e.g. you added/deleted new resources, it will all be shown on the console.
+
+For example after running `terraform plan` that console will show something like this:
+
+```sh
+
+$ terraform plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # random_string.bucket_name will be created
+  + resource "random_string" "bucket_name" {
+      + id          = (known after apply)
+      + length      = 16
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (known after apply)
+      + special     = false
+      + upper       = true
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + random_bucket_name = (known after apply)
+
+```
+
+
+### Terraform Apply
+
+By running `terraform apply` terraform will start provisioning the resources that was shown in `terraform plan` and all the changes that has been made. Terraform will prompt us for approval when this command is run but we can automate it by adding --auto-approve flag like shown below.
+
+The result will look similar to this:
+
+```sh
+
+$ terraform apply --auto-approve
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # random_string.bucket_name will be created
+  + resource "random_string" "bucket_name" {
+      + id          = (known after apply)
+      + length      = 16
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (known after apply)
+      + special     = false
+      + upper       = true
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + random_bucket_name = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+random_string.bucket_name: Creating...
+random_string.bucket_name: Creation complete after 0s [id=a8PdW3RzpuHlyQbn]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+random_bucket_name = "a8PdW3RzpuHlyQbn"
+
+```
 
 
 
+### Terraform Lock File
+
+`.terraform.lock.hcl` contains the locked versioning for the providers or modules that should be used for this project.
+
+Terraform Lock File **should be committed** to your version control system e.g. GitHub.
 
 
+### Terraform State File
 
 
+`.terraform.tfstate` contain information about the current state of your infrastructure. This **should not be committed** to your version control system because it can contain sensitive data. Losing this file means you won't be able to know the current state of your infrastrucure!
 
+
+`.terraform.tfstate.backup` it contains information about the previous file state.
+
+
+### Terraform Directory
+
+`.terraform` directory contains binaries o the terraform providers.
 
 
 
@@ -306,3 +493,9 @@ The result should look similar to this format:
 -[AWS Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) <sup>[13]</sup>
 
 -[AWS get-caller-identity](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html) <sup>[14]</sup>
+
+-[Terraform](https://www.terraform.io/) <sup>[15]</sup>
+
+-[Terraform Random Provider](https://registry.terraform.io/providers/hashicorp/random/latest/docs) <sup>[16]</sup>
+
+-[Terraform-aws-modules/s3 bucket](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest/examples/complete) <sup>[17]</sup>
