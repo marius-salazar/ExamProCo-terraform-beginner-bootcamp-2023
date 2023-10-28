@@ -438,6 +438,9 @@ random_bucket_name = "a8PdW3RzpuHlyQbn"
 
 ```
 
+### Terraform Destroy
+
+`terraform destroy` command will destroy the resources that was created e.g. S3 buckets.
 
 
 ### Terraform Lock File
