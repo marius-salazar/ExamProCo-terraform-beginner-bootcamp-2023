@@ -465,6 +465,22 @@ Terraform Lock File **should be committed** to your version control system e.g. 
 
 
 
+## Terraform Cloud
+
+### Terraform Login
+
+Upon running the command `terraform login` a token is being asked to proceed. By following this link [tokens](https://app.terraform.io/app/settings/tokens?source=terraform-login) you can generate a new token to be used.
+
+At first I encountered an error from the generated token. What I did is I cancelled the very first prompt that appeared and proceed to click the **Create an API token** button. The generated token now worked to be used for login.
+
+
+## Git Stash
+
+If you forget to create a new issue and you were working all along on the main branch, you can utilize the `git stash save` to temporarily save your changes while you tried to switch into to your new branch.
+
+Supposed that you already created the new branch, you can type `git pull` then `git fetch` and `git add .` in your main branch to be up to date. Now after that you can now use the `git stash save` command to temporarily store your changes in the main branch and transfer it later to the supposed to be branch that you should be working on.
+
+Then proceed to switching branch by using `git checkout **name of the branch**`. Finally you can now restore your changes that your worked on in the main branch into to the supposed designated branch by using the command `git stash apply` in your bash terminal.
 
 
 ## References
