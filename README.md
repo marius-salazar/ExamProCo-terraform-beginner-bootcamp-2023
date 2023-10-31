@@ -548,6 +548,12 @@ Supposed that you already created the new branch, you can type `git pull` then `
 
 Then proceed to switching branch by using `git checkout **name of the branch**`. Finally you can now restore your changes that your worked on in the main branch into to the supposed designated branch by using the command `git stash apply` in your bash terminal.
 
+## ~/.bash_profile
+
+If you made changes in ~/.bash_profile it will not take effect right away unless you reload it. In order to do that we can run the command `source ~/.bash_profile`.
+
+For example after setting the alias for terraform using `alias tf="terraform"` in the `.bash_profile` we can run `source ~/.bash_profile` to make the changes take effect right away.
+
 
 ## References
 
