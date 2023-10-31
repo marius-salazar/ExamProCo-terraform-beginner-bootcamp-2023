@@ -1,4 +1,23 @@
 terraform {
+
+ #backend "remote" {
+  #  hostname = "app.terraform.io"
+  #  organization = "marius_salazar"
+#
+  #  workspaces {
+  #    name = "terra-house-1"
+  #  }
+  #}
+
+   cloud {
+    organization = "marius_salazar"
+
+    workspaces {
+      name = "terra-house-1"
+    }
+  }
+
+
   required_providers {
     random = {
       source = "hashicorp/random"
@@ -25,7 +44,7 @@ provider "random" {
 resource "random_string" "bucket_name" {
   lower            = true
   upper            = false
-  length           = 16
+  length           = 32
   special          = false
 }
 
