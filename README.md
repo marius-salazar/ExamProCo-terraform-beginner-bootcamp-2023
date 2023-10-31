@@ -471,7 +471,73 @@ Terraform Lock File **should be committed** to your version control system e.g. 
 
 Upon running the command `terraform login` a token is being asked to proceed. By following this link [tokens](https://app.terraform.io/app/settings/tokens?source=terraform-login) you can generate a new token to be used.
 
-At first I encountered an error from the generated token. What I did is I cancelled the very first prompt that appeared and proceed to click the **Create an API token** button. The generated token now worked to be used for login.
+At first I encountered an error from the generated token. What I did is I cancelled the very first prompt that appeared and proceed to click the **Create an API token** button. The generated token was then entered to the prompt in the bash terminal.
+
+However we can also manually create a file in a specific directory in order not to enter the token to the prompt everytime we run terraform login.
+
+To create the file and put it on the specific directory which is `/home/gitpod/.terraform.d` we can use this command:
+
+```sh
+touch /home/gitpod/.terraform.d/credentials.tfrc.json
+```
+
+Then open the file using this command:
+
+```sh
+open /home/gitpod/.terraform.d/credentials.tfrc.json
+```
+
+After opening the file replace the token with the generated value.
+
+```json
+{
+  "credentials": {
+    "app.terraform.io": {
+      "token": "YOUR-TERRAFORM-CLOUD-TOKEN"
+    }
+  }
+}
+```
+
+### Using Bash Script to Generate tfrc file
+
+In order to automate the process of generating a token to login in terraform cloud we have created a bash script to do this. Which look like this:
+
+[/bin/generate_tfrc_credentials](/bin/generate_tfrc_credentials)
+
+```sh
+#!/usr/bin/env bash
+
+# Define target directory and file
+TARGET_DIR="/home/gitpod/.terraform.d"
+TARGET_FILE="${TARGET_DIR}/credentials.tfrc.json"
+
+# Check if TERRAFORM_CLOUD_TOKEN is set
+if [ -z "$TERRAFORM_CLOUD_TOKEN" ]; then
+    echo "Error: TERRAFORM_CLOUD_TOKEN environment variable is not set."
+    exit 1
+fi
+
+# Check if directory exists, if not, create it
+if [ ! -d "$TARGET_DIR" ]; then
+    mkdir -p "$TARGET_DIR"
+fi
+
+# Generate credentials.tfrc.json with the token
+cat > "$TARGET_FILE" << EOF
+{
+  "credentials": {
+    "app.terraform.io": {
+      "token": "$TERRAFORM_CLOUD_TOKEN"
+    }
+  }
+}
+EOF
+
+echo "${TARGET_FILE} has been generated."
+```
+
+
 
 
 ## Git Stash
