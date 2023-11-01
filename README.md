@@ -1,5 +1,9 @@
 # Terraform Beginner Bootcamp 2023
 
+
+![TerraTowns Diagram](https://github.com/marius-salazar/terraform-beginner-bootcamp-2023/assets/122790695/785e8790-4fec-458b-861e-bf7610d57ebb)
+
+
 ## Weekly Journals
 
 -[Week 0 Journal](journals/week0.md)
