@@ -577,7 +577,7 @@ echo "${TARGET_FILE} has been generated."
 
 ## Git Stash
 
-If you forget to create a new issue and you were working all along on the main branch, you can utilize the `git stash save` to temporarily save your changes while you tried to switch into to your new branch.
+If you forget to create a new issue and you were working all along on the main branch (or the wrong branch), you can utilize the `git stash save` to temporarily save your changes while you tried to switch into to your new branch.
 
 Supposed that you already created the new branch, you can type `git pull` then `git fetch` and `git add .` in your main branch to be up to date. Now after that you can now use the `git stash save` command to temporarily store your changes in the main branch and transfer it later to the supposed to be branch that you should be working on.
 
