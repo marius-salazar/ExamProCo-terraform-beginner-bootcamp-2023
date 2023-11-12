@@ -60,6 +60,7 @@ Terraform plan will compare the state of our infrastructure to the expected stat
 
 Then run `terraform apply` to make the changes take effect and restore the state of our infrastructure.
 
+
 ### Fix Missing Resources with  Terraform Import
 
 Another way of dealing with configuration drift is to use terraform import. [<sup>[4]</sup>](#references)
@@ -81,6 +82,54 @@ import {
 
 ```
 
+### Fix Using Terraform Refresh
+
+Terraform Refresh run an apply command but only locally.
+
+```tf
+terraform apply -refresh-only -auto-approve
+
+```
+## Terraform Modules
+
+### Terraform Module Structure
+
+A module should be place in a `modules` directory when locally developing modules but you can name it whatever you like.
+
+### Passing Input Variable
+
+We can pass input variable to our module.
+
+The module has to declare the terraform variables in its own variable.tf.
+
+```tf
+module "terrahouse_aws" {
+  source = "./modules/terrahouse_aws"
+  user_uuid = var.user_uuid
+  bucket_name = var.bucket_name
+}
+```
+
+### Module Sources
+
+Using source we can import the modules from various places e.g. [<sup>[5]</sup>](#references)
+
+- locally
+- Github
+- Terraform Registry 
+
+
+```tf
+module "terrahouse_aws" {
+  source = "./modules/terrahouse_aws"
+  user_uuid = var.user_uuid
+  bucket_name = var.bucket_name
+}
+```
+
+
+
+
 
 
 
@@ -94,4 +143,5 @@ import {
 
 - [Terraform Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import) <sup>[4]</sup>
 
+- [Module Sources](https://developer.hashicorp.com/terraform/language/modules/sources) <sup>[5]</sup>
 
