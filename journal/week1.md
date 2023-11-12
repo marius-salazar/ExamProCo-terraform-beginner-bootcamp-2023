@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 # Terrafom Beginner Bootcamp 2023 - Week 1
 
 ## Terraform and Input Variables
@@ -46,6 +44,44 @@ PROJECT_ROOT
 └── README.md               # required for root modules
 ```
 
+## Dealing with Configuration Drift
+
+### What will happen if you loose your state file
+
+If you loose your state file you need to tear down your cloud infrastructure manually. 
+
+You can use `terraform import` but it will not work for all resources so you need to check on terraform providers documentation to which it is supported.
+
+### Fix Manual Configuration
+
+If someone accidentally delete or modifies cloud resources manually through clickOPs, we can fix it by running `terraform plan`.
+
+Terraform plan will compare the state of our infrastructure to the expected state thus fixing _configuration drift_
+
+Then run `terraform apply` to make the changes take effect and restore the state of our infrastructure.
+
+### Fix Missing Resources with  Terraform Import
+
+Another way of dealing with configuration drift is to use terraform import. [<sup>[4]</sup>](#references)
+
+We can run this through this command, 
+
+```sh
+$ terraform import aws_s3_bucket.website_bucket bucket-name
+```
+
+or incorporate it as a code block like this:
+
+```sh
+
+import {
+  to = aws_s3_bucket.bucket
+  id = "bucket-name"
+}
+
+```
+
+
 
 
 ## References
@@ -56,5 +92,6 @@ PROJECT_ROOT
 
 - [Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure) <sup>[3]</sup>
 
->>>>>>> Stashed changes
+- [Terraform Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import) <sup>[4]</sup>
+
 
