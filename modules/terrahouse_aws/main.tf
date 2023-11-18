@@ -5,7 +5,7 @@ terraform{
 
     aws = {
       source = "hashicorp/aws"
-      version = "5.26.0"
+       version = "5.26.0"
     }
   }
 }
@@ -45,3 +45,13 @@ resource "aws_s3_object" "index_html" {
 
   etag = filemd5(var.index_html_filepath)
 }
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object
+resource "aws_s3_object" "error_html" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "error.html"
+  source = var.error_html_filepath
+
+  etag = filemd5(var.error_html_filepath)
+}
+
