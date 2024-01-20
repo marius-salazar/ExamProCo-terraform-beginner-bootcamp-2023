@@ -268,6 +268,30 @@ Example:
 {"hello"="world"}
 ```
 
+## Changing the Lifecycle of Resources
+
+Lifecycle management allows you to control when are the resources created, updated, etc. [<sup>[13]</sup>](#references)
+
+Example usage:
+```tf
+ lifecycle {
+    replace_triggered_by = [terraform_data.content_version.output]
+    ignore_changes = [etag]
+  }
+```
+
+
+## Terraform Data
+
+he terraform_data implements the standard resource lifecycle, but does not directly take any other actions. Plain data values such as Local Values and Input Variables don't have any side-effects to plan against and so they aren't valid in replace_triggered_by. You can use terraform_data's behavior of planning an action each time input changes to indirectly use a plain value to trigger replacement. [<sup>[14]</sup>](#references)
+
+Example usage:
+```tf
+resource "terraform_data" "content_version" {
+  input = var.content_version
+}
+```
+
 ## References
 
 
@@ -295,3 +319,7 @@ Example:
 - [AWS CloudFront Origin Access Control](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) <sup>[11]</sup>
 
 - [Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources) <sup>[12]</sup>
+
+- [Terraform Lifecycle Meta Arguments](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle) <sup>[13]</sup>
+
+- [terraform_data](https://developer.hashicorp.com/terraform/language/resources/terraform-data) <sup>[14]</sup>
