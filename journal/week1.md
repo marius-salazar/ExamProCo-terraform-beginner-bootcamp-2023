@@ -35,7 +35,7 @@ Checkout the commit that you want to retag. Grab the SHA from your GitHub histro
 
 ```sh
 git checkout <SHA>
-git tags M.M.P
+git tag M.M.P
 git push --tags
 git checkout main
 ```
@@ -204,6 +204,70 @@ In our terraform module main.tf file, we used an Etag in the resource block of c
 
 An Etag is used to track changes on the contents of the object uploaded to S3 bucket. It uses an md5 that hashes the contents of a given file. For example if the contents of index.html are change, then it will compare it the previous hashes of the same file does knowing if there are changes to the contents of the file. [<sup>[9]</sup>](#references)
 
+
+## AWS CloudFront Distribution
+
+In order to create an AWS CloudFront web distribution you need to use the **Resoure: aws_cloudfront_distribution** in your tf file. [<sup>[10]</sup>](#references)
+
+Example:
+```tf
+resource "aws_cloudfront_distribution" "s3_distribution" {
+  origin {
+    domain_name              = aws_s3_bucket.website_bucket.bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.default.id
+    origin_id                = local.s3_origin_id
+  }
+```
+## AWS CloudFront Origin Access Control
+
+We use AWS Cloudfront Origin Access Control (OAC) to restrict the accessibility of our contents hosted in the S3 bucket to be accessible only through CloudFront Content Distribution Network (CDN). By doing so, we make sure that the contents in S3 is not publicly accessible and cost wise the overall cost of data transfer out will be cheaper when using CDN. [<sup>[11]</sup>](#references)
+
+Example usage:
+```tf
+resource "aws_cloudfront_origin_access_control" "default" {
+  name                              = "OAC ${var.bucket_name}"
+  description                       = "Origin Access Controls for static website hosting ${var.bucket_name}"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+```
+## Terraform Locals
+
+A local value assigns a name to an expression, so you can use the name multiple times within a module instead of repeating the expression. 
+
+Example:
+```tf
+locals {
+  s3_origin_id = "MyS3Origin"
+}
+```
+
+## Terraform Data Sources
+
+This allows us to source data from cloud resources. [<sup>[12]</sup>](#references)
+
+This is useful when we want to reference cloud resources without importing them.
+
+Example:
+```tf
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+```
+
+## Working with JSON
+
+We use the jsonencode to create the json policy inline in the hcl.
+
+Example:
+```tf
+> jsonencode({"hello"="world"})
+{"hello"="world"}
+```
+
 ## References
 
 
@@ -225,3 +289,9 @@ An Etag is used to track changes on the contents of the object uploaded to S3 bu
 - [Fileexist Function](https://developer.hashicorp.com/terraform/language/functions/fileexists) <sup>[8]</sup>
 
 - [Filemd5](https://developer.hashicorp.com/terraform/language/functions/filemd5) <sup>[9]</sup>
+
+- [AWS CloudFront Distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) <sup>[10]</sup>
+
+- [AWS CloudFront Origin Access Control](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) <sup>[11]</sup>
+
+- [Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources) <sup>[12]</sup>
