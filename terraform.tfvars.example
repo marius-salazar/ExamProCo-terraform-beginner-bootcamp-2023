@@ -5,4 +5,4 @@ bucket_name = "7qbp9p1g7slm8e44mho89wfm0fwzjm28"
 
 
 index_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/index.html"
-error_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/error.html"#
+error_html_filepath="/workspace/terraform-beginner-bootcamp-2023/public/error.html"
